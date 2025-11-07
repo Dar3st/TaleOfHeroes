@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -6,11 +7,13 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
     private static EnemyLoader enemyLoader;
     private static SkillLoader skillLoader;
+    private static ItemLoader itemLoader;
 
     public static void main(String[] args) {
         System.out.println("Добро пожаловать в консольную RPG!");
         enemyLoader = new EnemyLoader();
         skillLoader = new SkillLoader();
+        itemLoader = new ItemLoader();
 
         System.out.print("Введите имя вашего персонажа: ");
         String playerName = scanner.nextLine();
@@ -126,52 +129,31 @@ public class Main {
     }
 
     private static void shop(){
+        ItemLoader itemLoader = new ItemLoader();
+        List<Item> availableItems = itemLoader.getAllItems();
+
         System.out.println("=== Магазин ===");
         System.out.println("Ваше золото: " + player.getGold());
-        System.out.println("1. Малое зелье здоровья - цена: 5");
-        System.out.println("2. Среднее зелье здоровья - цена: 15");
-        System.out.println("3. Большое зелье здоровья - цена: 30");
+
+        for(int i = 0; i < availableItems.size(); i++){
+            Item item = availableItems.get(i);
+            System.out.println((i+1) + ". " + item.toString());
+        }
+
         System.out.println("0. Выход из магазина");
         System.out.print("Ваш выбор: ");
 
-        int choice = getPlayerChoice(0, 3);
+        int choice = getPlayerChoice(0, availableItems.size());
+        if(choice == 0) return;
 
-        switch (choice){
-            case 1:
-                if(player.getGold() < 10){
-                    System.out.println("У вас недостаточно денег");
-                    break;
-                }else{
-                    int cost = 10;
-                    player.setGold(player.getGold() - cost);
-                    player.getInventory().add("малое зелье здоровья");
-                    System.out.println("Вы купили малое зелье здоровья");
-                    break;
-                }
-            case 2:
-                if(player.getGold() < 15){
-                    System.out.println("У вас недостаточно денег");
-                    break;
-                }else{
-                    int cost = 15;
-                    player.setGold(player.getGold() - cost);
-                    player.getInventory().add("среднее зелье здоровья");
-                    System.out.println("Вы купили среднее зелье здоровья");
-                    break;
-                }
-            case 3:
-                if(player.getGold() < 30){
-                    System.out.println("У вас недостаточно денег");
-                    break;
-                }else{
-                    int cost = 30;
-                    player.setGold(player.getGold() - cost);
-                    player.getInventory().add("большое зелье здоровья");
-                    System.out.println("Вы купили большое зелье здоровья");
-                    break;
-                }
-            case 0:
-                break;
+        Item selectedItem = availableItems.get(choice - 1);
+
+        if(player.getGold() >= selectedItem.getPrice()){
+            player.setGold(player.getGold() - selectedItem.getPrice());
+            player.addItem(selectedItem);
+            System.out.println("Вы приобрели: " + selectedItem.getName());
+        }else{
+            System.out.println("Недостаточно золота для покупки");
         }
     }
 
@@ -189,7 +171,7 @@ public class Main {
         System.out.println("0. Выход");
         System.out.print("Ваш выбор: ");
 
-        int choice = getPlayerChoice(0, 4);
+        int choice = getPlayerChoice(0, availableSkills.size());
         if(choice == 0) return;
 
         Skill selectedSkill = availableSkills.get(choice - 1);

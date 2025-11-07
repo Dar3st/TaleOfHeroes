@@ -14,6 +14,7 @@ public class Player {
     private Integer gold;
     private List<String> inventory;
     private List<Skill> skills;
+    private List<Item> items;
     private boolean isAdmin;
 
     public Player(String name){
@@ -39,9 +40,8 @@ public class Player {
             this.gold = 100;
         }
         this.inventory = new ArrayList<>();
-        this.inventory.add("Малое зелье здоровья");
-        this.inventory.add("Малое зелье здоровья");
         this.skills = new ArrayList<>();
+        this.items = new ArrayList<>();
     }
 
     public String getName(){return name;}
@@ -95,6 +95,11 @@ public class Player {
     public List<Skill> getSkills(){return skills;}
     public void addSkill(Skill skill){
         skills.add(skill);
+    }
+
+    public List<Item> getItem(){return items;}
+    public void addItem(Item item){
+        inventory.add(item.getName());
     }
 
     public void addExperience(int exp){
