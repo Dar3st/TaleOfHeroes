@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -108,22 +109,24 @@ public class Battle {
     }
 
     private void useItemInBattle(){
-        if(player.getInventory().isEmpty()){
-            System.out.println("Ваш инвентарь пуст!");
+        List<Item> inventory = player.getInventoryItems();
+
+        if(inventory.isEmpty()){
+            System.out.println("Ваш инвентарь пуст");
             return;
         }
 
         System.out.println("Ваш инвентарь: ");
-        for(int i = 0; i < player.getInventory().size(); i++){
-            System.out.println((i + 1) + ". " + player.getInventory().get(i));
+        for(int i = 0; i < inventory.size(); i++){
+            System.out.println((i + 1) + ". " + inventory.get(i));
         }
         System.out.println("0. Отмена");
 
-        int choice = getPlayerChoice(0, player.getInventory().size());
+        int choice = getPlayerChoice(0, inventory.size());
         if(choice == 0) return;
 
-        String itemToUse = player.getInventory().get(choice - 1);
-        player.useItem(itemToUse);
+        Item itemToUse = inventory.get(choice - 1);
+        player.useItem(itemToUse.getName());
     }
 
     private void useSkillInBattle(){

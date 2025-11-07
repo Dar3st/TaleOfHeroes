@@ -99,19 +99,20 @@ public class Main {
 
     private static void showInventory() {
         System.out.println("\n=== ВАШ ИНВЕНТАРЬ ===");
-        if (player.getInventory().isEmpty()) {
+        List<Item> inventory = player.getInventoryItems();
+        if (inventory.isEmpty()) {
             System.out.println("Ваш инвентарь пуст.");
         } else {
-            for (int i = 0; i < player.getInventory().size(); i++) {
-                System.out.println((i + 1) + ". " + player.getInventory().get(i));
+            for (int i = 0; i < inventory.size(); i++) {
+                System.out.println((i + 1) + ". " + inventory.get(i));
             }
             System.out.println("\nИспользовать предмет? (1 - Да, 0 - Нет)");
             int choice = getPlayerChoice(0, 1);
             if (choice == 1) {
                 System.out.print("Введите номер предмета: ");
-                int itemChoice = getPlayerChoice(1, player.getInventory().size());
-                String itemToUse = player.getInventory().get(itemChoice - 1);
-                player.useItem(itemToUse);
+                int itemChoice = getPlayerChoice(1, inventory.size());
+                Item itemToUse = inventory.get(itemChoice - 1);
+                player.useItem(itemToUse.getName());
             }
         }
     }

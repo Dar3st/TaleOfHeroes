@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Player {
     private String name;
@@ -12,9 +14,9 @@ public class Player {
     private int experience;
     private int level;
     private Integer gold;
-    private List<String> inventory;
     private List<Skill> skills;
-    private List<Item> items;
+    private List<Item> inventory;
+    private Map<String, Item> itemMap;
     private boolean isAdmin;
 
     public Player(String name){
@@ -41,7 +43,7 @@ public class Player {
         }
         this.inventory = new ArrayList<>();
         this.skills = new ArrayList<>();
-        this.items = new ArrayList<>();
+        this.itemMap = new HashMap<>();
     }
 
     public String getName(){return name;}
@@ -90,18 +92,25 @@ public class Player {
     }
 
     public List<String> getInventory() {
-        return inventory;
+        List<String> result = new ArrayList<>();
+        for(Item item : inventory){
+            result.add(item.toString());
+        }
+        return result;
     }
+    public List<Item> getInventoryItems(){
+        return new ArrayList<>(inventory);
+    }
+
     public List<Skill> getSkills(){return skills;}
     public void addSkill(Skill skill){
         skills.add(skill);
     }
 
-    public List<Item> getItem(){return items;}
     public void addItem(Item item){
-        inventory.add(item.getName());
+        inventory.add(item);
+        itemMap.put(item.getName(), item);
     }
-
     public void addExperience(int exp){
         this.experience += exp;
         if(this.experience >= this.level * 100){
@@ -134,30 +143,47 @@ public class Player {
     }
 
     public void useItem(String itemName){
-        if(inventory.contains(itemName)){
-            switch (itemName){
-                case "малое зелье здоровья":
-                    int smallHeal = 15;
-                    health = Math.min(health + smallHeal, maxHealth);
-                    System.out.println("Вы использовали " + itemName + " и восстановили " + smallHeal + "HP");
-                    break;
-                case "среднее зелье здоровья":
-                    int midHeal = 25;
-                    health = Math.min(health + midHeal, maxHealth);
-                    System.out.println("Вы использовали " + itemName + " и восстановили " + midHeal + "HP");
-                    break;
-                case "большое зелье здоровья":
-                    int largeHeal = 50;
-                    health = Math.min(health + largeHeal, maxHealth);
-                    System.out.println("Вы использовали " + itemName + " и восстановили " + largeHeal + "HP");
-                    break;
-            }
-            inventory.remove(itemName);
-        }else{
+        Item item = itemMap.get(itemName);
+        if(item == null){
             System.out.println("У вас нет предмета - " + itemName);
+            return;
+        }
+
+        boolean used = applyItemEffect(item);
+        if(used){
+            inventory.remove(item);
+            itemMap.remove(itemName);
+            System.out.println("Вы использовали: " + itemName);
         }
     }
 
+    private boolean applyItemEffect(Item item){
+        if(item == null) return false;
+
+        switch (item.getEffectType().toUpperCase()){
+            case "HEAL" :
+                int healAmount = item.getEffectValue();
+                int newHealth = Math.min(health + healAmount, maxHealth);
+                int actualHeal = newHealth - health;
+                health = newHealth;
+                System.out.println("Восстановили " + actualHeal + " HP");
+                return true;
+            case "MANA":
+                int manaAmount = item.getEffectValue();
+                int newMana = Math.min(mana + manaAmount, maxMana);
+                int actualMana = newMana - mana;
+                mana = newMana;
+                System.out.println("Восстановили " + actualMana + " MP");
+                return true;
+            case "BUFF_ATTACK":
+                int attackAmount = item.getEffectValue();
+                this.attack = getAttack() + attackAmount;
+                return true;
+            default:
+                System.out.println("Неизвестный эффект предмета: " + item.getEffectType());
+                return false;
+        }
+    }
     public void useSkill(Skill skill, Enemy enemy){
         if(isAdmin || mana >= skill.getCostMana()){
             if(!isAdmin){
