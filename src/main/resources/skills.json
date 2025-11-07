@@ -1,0 +1,36 @@
+{
+  "skills": [
+    {
+      "id": 1,
+      "name": "Морозная стрела",
+      "costMana": 10,
+      "magDamage": 15,
+      "level": 1,
+      "price": 50
+    },
+    {
+      "id": 2,
+      "name": "Огненный шар",
+      "costMana": 10,
+      "magDamage": 25,
+      "level": 1,
+      "price": 55
+    },
+    {
+      "id": 3,
+      "name": "Электрический разряд",
+      "costMana": 15,
+      "magDamage": 45,
+      "level": 1,
+      "price": 75
+    },
+    {
+      "id": 4,
+      "name": "Адское пламя",
+      "costMana": 0,
+      "magDamage": 1000,
+      "level": 1,
+      "price": 0
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "enemies": [
+    {
+      "name": "Слабый Гоблин",
+      "health": 40,
+      "attack": 10,
+      "defense": 5,
+      "experienceReward": 30,
+      "goldReward": 15,
+      "spawnWeight": 60
+    },
+    {
+      "name": "Злой Орк",
+      "health": 70,
+      "attack": 18,
+      "defense": 12,
+      "experienceReward": 60,
+      "goldReward": 35,
+      "spawnWeight": 10
+    },
+    {
+      "name": "ДРЕВНИЙ ДРАКОН",
+      "health": 150,
+      "attack": 25,
+      "defense": 20,
+      "experienceReward": 200,
+      "goldReward": 100,
+      "spawnWeight": 1
+    },
+    {
+      "name": "Скелет-воин",
+      "health": 55,
+      "attack": 12,
+      "defense": 8,
+      "experienceReward": 40,
+      "goldReward": 20,
+      "spawnWeight": 25
+    },
+    {
+      "name": "Тролль",
+      "health": 90,
+      "attack": 20,
+      "defense": 15,
+      "experienceReward": 80,
+      "goldReward": 45,
+      "spawnWeight": 25
+    },
+    {
+      "name": "Волк",
+      "health": 25,
+      "attack": 5,
+      "defense": 0,
+      "experienceReward": 5,
+      "goldReward": 7,
+      "spawnWeight": 55
+    }
+  ]
+}
