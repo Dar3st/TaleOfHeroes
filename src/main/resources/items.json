@@ -4,57 +4,93 @@
       "id": 1,
       "name": "Малое зелье здоровья",
       "price": 10,
-      "description": "Восстанавливает 15 HP",
+      "description": "Восстанавливает 20 HP",
       "effectType": "HEAL",
-      "effectValue": 15
+      "effectValue": 20,
+      "itemType": "CONSUMABLE"
     },
     {
       "id": 2,
       "name": "Среднее зелье здоровья",
       "price": 25,
-      "description": "Восстанавливает 30 HP",
+      "description": "Восстанавливает 50 HP",
       "effectType": "HEAL",
-      "effectValue": 30
+      "effectValue": 50,
+      "itemType": "CONSUMABLE"
     },
     {
       "id": 3,
-      "name": "Большое зелье здоровья",
-      "price": 50,
-      "description": "Восстанавливает 50 HP",
-      "effectType": "HEAL",
-      "effectValue": 50
+      "name": "Малое зелье маны",
+      "price": 15,
+      "description": "Восстанавливает 15 MP",
+      "effectType": "MANA",
+      "effectValue": 15,
+      "itemType": "CONSUMABLE"
     },
     {
       "id": 4,
-      "name": "Малое зелье маны",
-      "price": 15,
-      "description": "Восстанавливает 10 MP",
-      "effectType": "MANA",
-      "effectValue": 10
+      "name": "Деревянный меч",
+      "price": 30,
+      "description": "Простой деревянный меч",
+      "itemType": "WEAPON",
+      "equipmentSlot": "MAIN_HAND",
+      "attackBonus": 3,
+      "defenseBonus": 0,
+      "healthBonus": 0,
+      "manaBonus": 0,
+      "requiredLevel": 1
     },
     {
       "id": 5,
-      "name": "Среднее зелье маны",
-      "price": 25,
-      "description": "Восстанавливает 30 MP",
-      "effectType": "MANA",
-      "effectValue": 30
+      "name": "Кожаный доспех",
+      "price": 50,
+      "description": "Легкий кожаный доспех",
+      "itemType": "ARMOR",
+      "equipmentSlot": "CHEST",
+      "attackBonus": 0,
+      "defenseBonus": 5,
+      "healthBonus": 10,
+      "manaBonus": 0,
+      "requiredLevel": 1
     },
     {
       "id": 6,
-      "name": "Большое зелье маны",
-      "price": 50,
-      "description": "Восстанавливает 30 MP",
-      "effectType": "MANA",
-      "effectValue": 100
+      "name": "Железный шлем",
+      "price": 40,
+      "description": "Простой железный шлем",
+      "itemType": "ARMOR",
+      "equipmentSlot": "HEAD",
+      "attackBonus": 0,
+      "defenseBonus": 3,
+      "healthBonus": 5,
+      "manaBonus": 0,
+      "requiredLevel": 1
     },
     {
       "id": 7,
-      "name": "Слабое зелье силы",
-      "price": 35,
-      "description": "Усиливает вашу атаку на 20 ед.",
-      "effectType": "BUFF_ATTACK",
-      "effectValue": 20
+      "name": "Стальной меч",
+      "price": 100,
+      "description": "Качественный стальной меч",
+      "itemType": "WEAPON",
+      "equipmentSlot": "MAIN_HAND",
+      "attackBonus": 8,
+      "defenseBonus": 0,
+      "healthBonus": 0,
+      "manaBonus": 0,
+      "requiredLevel": 3
+    },
+    {
+      "id": 8,
+      "name": "Кольцо здоровья",
+      "price": 75,
+      "description": "Кольцо, увеличивающее здоровье",
+      "itemType": "ACCESSORY",
+      "equipmentSlot": "RING_1",
+      "attackBonus": 0,
+      "defenseBonus": 2,
+      "healthBonus": 15,
+      "manaBonus": 0,
+      "requiredLevel": 2
     }
   ]
 }

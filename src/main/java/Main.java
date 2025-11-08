@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -106,14 +107,70 @@ public class Main {
             for (int i = 0; i < inventory.size(); i++) {
                 System.out.println((i + 1) + ". " + inventory.get(i));
             }
-            System.out.println("\nИспользовать предмет? (1 - Да, 0 - Нет)");
-            int choice = getPlayerChoice(0, 1);
-            if (choice == 1) {
+
+            System.out.println("\nВыберите действие:");
+            System.out.println("1 - Использовать предмет");
+            System.out.println("2 - Экипировать предмет");
+            System.out.println("3 - Просмотреть информацию о предмете");
+            System.out.println("0 - Назад");
+
+            int choice = getPlayerChoice(0, 3);
+
+            if (choice != 0) {
                 System.out.print("Введите номер предмета: ");
                 int itemChoice = getPlayerChoice(1, inventory.size());
-                Item itemToUse = inventory.get(itemChoice - 1);
-                player.useItem(itemToUse.getName());
+                Item selectedItem = inventory.get(itemChoice - 1);
+
+                switch (choice){
+                    case 1:
+                        player.useItem(selectedItem.getName());
+                        break;
+                    case 2:
+                        player.equipItem(selectedItem);
+                        break;
+                    case 3:
+                        System.out.println("\n" + selectedItem.getDetailedInfo());
+                        break;
+                }
             }
+        }
+
+        player.showEquipment();
+
+        System.out.println("\n1. Показать экипировку");
+        System.out.println("2. Снять экипировку");
+        System.out.println("0. Назад в главное меню");
+
+        int equipChoice = getPlayerChoice(0, 2);
+        if(equipChoice == 0) return;
+        if(equipChoice == 1){
+            player.showEquipment();
+        }else if(equipChoice == 2){
+            unequipItemMenu();
+        }
+
+    }
+
+    private static void unequipItemMenu() {
+        Map<EquipmentSlot, Item> equipment = player.getEquippedItems();
+        if (equipment.isEmpty()) {
+            System.out.println("На вас ничего не экипировано!");
+            return;
+        }
+
+        System.out.println("\n=== СНЯТИЕ ЭКИПИРОВКИ ===");
+        List<EquipmentSlot> slots = new ArrayList<>(equipment.keySet());
+        for (int i = 0; i < slots.size(); i++) {
+            EquipmentSlot slot = slots.get(i);
+            Item item = equipment.get(slot);
+            System.out.println((i + 1) + ". " + slot.getDisplayName() + ": " + item.getName());
+        }
+        System.out.println("0. Назад");
+
+        int choice = getPlayerChoice(0, slots.size());
+        if (choice > 0) {
+            EquipmentSlot selectedSlot = slots.get(choice - 1);
+            player.unequipItem(selectedSlot);
         }
     }
 
@@ -128,6 +185,8 @@ public class Main {
             System.out.println("У вас недостаточно золота для отдыха в таверне! Нужно " + cost + " золота.");
         }
     }
+
+
 
     private static void shop(){
         ItemLoader itemLoader = new ItemLoader();
